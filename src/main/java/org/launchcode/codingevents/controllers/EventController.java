@@ -15,13 +15,10 @@ import java.util.List;
 @RequestMapping("events")
 public class EventController {
 
+    private static List<String> events = new ArrayList<>();
+
     @GetMapping
     public String displayAllEvents(Model model) {
-        List<String> events = new ArrayList<>();
-        events.add("Code With Pride");
-        events.add("Strange Loop");
-        events.add("Apple WWDC");
-        events.add("SpringOne Platform");
         model.addAttribute("events", events);
         return "events/index";
     }
@@ -32,5 +29,10 @@ public class EventController {
         return "events/create";
     }
 
-
+    //lives at /events/create
+    @PostMapping("create")
+    public String processCreateEventForm(@RequestParam String eventName) {
+        events.add(eventName);
+        return "redirect:";
+    }
 }
